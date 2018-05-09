@@ -65,4 +65,6 @@ def apicall():
 	return (jsonify({"prediction":predictions[0][0],"filename":filename}))
 
 if __name__ == "__main__":
+
+	print "Add /model/predict at the end of the below given url to trigger the prediction module. Make sure you send a 'POST' request to it." 
 	app.run(debug=True, port=5000)
