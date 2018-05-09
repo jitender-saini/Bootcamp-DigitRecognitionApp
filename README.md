@@ -2,3 +2,16 @@
 
 This repository contains the Code and Data Files relevant to our Bootcamp
 Digit Recognition App Project.
+
+To run this code follow the below given instructions:
+
+To train the model:
+1) In terminal, navigate to the model directory and execute "python model.py". This will train the model as well as test it on sample test data.
+
+To predict with this model:
+1) Run the api with "python demo.py".
+2) In terminal you will be shown a url at which the api will be running, Let that url be X.
+3) At X/model/predict. Send a POST request using Postman.
+4) While sending the post request, make sure you send an image as a part of the request. To do this Select "Body" tab and in
+"form-data" category, under key column write "test_image" and select an appropriate image using file selector under value column.
+5) The result is in json format.
