@@ -5,10 +5,11 @@ Digit Recognition App Project.
 
 To run this code follow the below given instructions:
 
-To train the model:
+<h3>To train the model:</h3>
+
 1) In terminal, navigate to the model directory and execute "python model.py". This will train the model as well as test it on sample test data.
 
-To predict with this model:
+<h3>To predict with this model:</h3>
 <ol>
 <li>Run the api with "python demo.py"</li>
 <li>In terminal you will be shown a url at which the api will be running, Let that url be X.</li>
