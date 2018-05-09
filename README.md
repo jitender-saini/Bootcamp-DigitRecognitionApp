@@ -1,2 +1,4 @@
 # Bootcamp-DigitRecognitionApp
-Code and Data Files relevant to our Bootcamp Digit Recognition App Project.
+
+This repository contains the Code and Data Files relevant to our Bootcamp
+Digit Recognition App Project.
