@@ -4,21 +4,17 @@ sys.path.append('../')
 import csv
 import joblib
 import numpy as np
+from declarations import ROOT_DIR
 from Utility.ImageProcessing import imageToPixel,extract_number,show_image
 from sklearn.metrics import accuracy_score, confusion_matrix,precision_score,recall_score
 from sklearn.tree import DecisionTreeClassifier as DTC
 from sklearn.ensemble import RandomForestClassifier as RFC
 
 def train_model():
-    basepath = "../static/"
-
-    # This basepath is to be used when the solution is integrated on AWS.
-    # basepath = "/var/www/FlaskApplications/SampleApp/api"
-
     # Reading data from train.csv file and storing it in a list named data. Each
     # element of "data" list is a row of train.csv file.
     data = []
-    with open('../static/Data/train.csv') as f:
+    with open(os.path.join(ROOT_DIR,"static/Data/train.csv")) as f:
         reader = csv.reader(f)
         for row in reader:
             data.append(row)
@@ -61,7 +57,7 @@ def train_model():
     clf.fit(train_X,train_Y)
 
     # Store the model
-    joblib.dump(clf,basepath + 'model.pkl')
+    joblib.dump(clf,os.path.join(ROOT_DIR,'Model/model.pkl'))
 
     # Predict on test data from same distribution
     pred_Y = clf.predict(test_X)
@@ -78,10 +74,10 @@ def train_model():
 def apply_model_on_test_set():
     pred_Y = []
     test_Y = []
-    base_path = '../static/Data/Test Images/'
+    base_path = os.path.join(ROOT_DIR,"static/Data/Test Images")
     for f in os.listdir(base_path):
         test_Y.append(int(f.split('(')[0].strip()))
-        extracted_numbers = extract_number(base_path + f,"intermediate/")
+        extracted_numbers = extract_number(os.path.join(base_path,f),"intermediate/")
         digits = extracted_numbers
         for idx in range(len(digits)):
             pixels = imageToPixel(digits[idx]).tolist()
@@ -98,14 +94,10 @@ def apply_model_on_test_set():
 
 
 def predict_value(test_X):
-    # COMMENT WHEN DEPLOYING ON AWS
-    basepath = "./Model/"
-
-    # UNCOMMENT WHEN DEPLOYING ON AWS
-    # basepath = "/var/www/FlaskApplications/SampleApp/api/static/"
+    basepath = os.path.join(ROOT_DIR,"Model")
 
     # Load the already created model
-    clf = joblib.load(basepath + 'model.pkl')
+    clf = joblib.load(os.path.join(basepath,"model.pkl"))
 
     # Predict on test data
     pred_Y = clf.predict(np.array(test_X))

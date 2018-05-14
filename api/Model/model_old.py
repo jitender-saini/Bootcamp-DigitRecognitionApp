@@ -8,6 +8,7 @@ import pandas as pd
 from sklearn.metrics import accuracy_score
 from sklearn.svm import LinearSVC
 from sklearn.tree import DecisionTreeClassifier as DTC
+from sklearn.ensemble import RandomForestClassifier
 
 def train_model():
     basepath = ".."
@@ -21,7 +22,7 @@ def train_model():
     test_Y = f_train.ix[40000:,0]
 
     # Create a model
-    clf = DTC()
+    clf = RandomForestClassifier()
     clf.fit(train_X,train_Y)
 
     # Store the model
@@ -41,3 +42,5 @@ def predict_value(test_X):
     pred_Y = clf.predict(np.array(test_X))
 
     return clf.predict(test_X)
+
+train_model()

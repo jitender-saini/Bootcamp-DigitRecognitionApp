@@ -1,5 +1,7 @@
 import os
 import cv2
+import sys
+sys.path.append('../')
 import random
 import pandas as pd
 import numpy as np
@@ -31,6 +33,7 @@ def pixelToImage(pixels,name = "temp"):
         return True
     except:
         return False
+
 
 # Using this function we can convert any image to it's corresponding pixel intensity array.
 def imageToPixel(imgPath):

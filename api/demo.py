@@ -4,30 +4,19 @@ import shutil
 import joblib
 import numpy as np
 from PIL import Image
+from declarations import ROOT_DIR
 from Model.model import predict_value,train_model
 from Utility.ImageProcessing import imageToPixel,extract_number
 from flask import Flask, jsonify, request, render_template, make_response, Response
 
 app = Flask(__name__)
-# Turn ON this path for AWS EC2 Instance - Also make sure you are working with the exact given folder structure otherwise
-# change accordingly
-
-# UNCOMMENT WHEN DEPLOYING ON AWS
-# basepath = "/var/www/FlaskApplications/SampleApp/api"
-
-# COMMENT WHEN DEPLOYING ON AWS
-basepath = "."
-
-app.config['UPLOAD_FOLDER'] = basepath + "/static/"
+app.config['UPLOAD_FOLDER'] = os.path.join(ROOT_DIR,"static")
 
 
 # Using "POST" method to handle "POST" request sent
 # by the client (our android application in this case)
 @app.route('/model/predict', methods=['POST'])
 def apicall():
-	# Basepath - You need to changes this if you are not following the exact same folder structure.
-	# basepath = "/var/www/FlaskApplications/SampleApp/api"
-
 	filename = ""
 
 	# Check if the 'test_image' key is present in the files section of the request.
@@ -49,7 +38,7 @@ def apicall():
 	# Pass the path of this file which you just saved on EC2 Instance to your image processing function extract_number()
 	# It will process it and return the a list of file paths (these filepaths are for images of digits extracted from
 	# the original image).
-	digits = extract_number(test_image_path,app.config['UPLOAD_FOLDER']+filename.split('/')[-1]+"_")
+	digits = extract_number(test_image_path,os.path.join(app.config['UPLOAD_FOLDER'],filename.split('/')[-1]+"_"))
 
 	predictions = []
 
