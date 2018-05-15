@@ -77,7 +77,7 @@ def apply_model_on_test_set():
     base_path = os.path.join(ROOT_DIR,"static/Data/Test Images")
     for f in os.listdir(base_path):
         test_Y.append(int(f.split('(')[0].strip()))
-        extracted_numbers = extract_number(os.path.join(base_path,f),"intermediate/")
+        extracted_numbers = extract_number(os.path.join(base_path,f),os.path.join(ROOT_DIR,"Model/intermediate/"))
         digits = extracted_numbers
         for idx in range(len(digits)):
             pixels = imageToPixel(digits[idx]).tolist()
