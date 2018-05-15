@@ -11,6 +11,7 @@ from sklearn.tree import DecisionTreeClassifier as DTC
 from sklearn.ensemble import RandomForestClassifier as RFC
 
 def train_model():
+    
     # Reading data from train.csv file and storing it in a list named data. Each
     # element of "data" list is a row of train.csv file.
     data = []
