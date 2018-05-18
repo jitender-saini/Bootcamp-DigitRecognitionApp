@@ -1,5 +1,5 @@
 # Digit Recognition Application
-This is bad line
+
 
 This repository contains the Code and Data Files relevant to our Bootcamp
 Digit Recognition App Project.
