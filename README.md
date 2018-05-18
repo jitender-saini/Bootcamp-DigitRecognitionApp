@@ -3,7 +3,7 @@
 
 This is the line
 next line Whatever I can do anything.
-
+Jatin MAC Edit
 
 This repository contains the Code and Data Files relevant to our Bootcamp
 Digit Recognition App Project.
