@@ -54,6 +54,13 @@ import org.apache.http.entity.mime.content.FileBody;
 
 public class PaintView extends View {
 
+    /*
+    Paint View Configuration Section Starts
+    In this section we are setting up the paint view variables and functions.
+    These functions sets up the canvas in the app on which we are able to draw digit.
+    The function names are self explanatory.
+    * */
+
     public static int BRUSH_SIZE = 10;
     public static final int DEFAULT_COLOR = Color.RED;
     public static final int DEFAULT_BG_COLOR = Color.WHITE;
@@ -199,11 +206,14 @@ public class PaintView extends View {
         return true;
     }
 
+
+    /*
+    Paint View Configuration Section Ends
+    */
+
+
+    // This function returns the canvas image of the digit drawn as a bitmap to the caller function.
     protected Bitmap save() throws FileNotFoundException, MalformedURLException, IOException{
-            Bitmap bitmap = mBitmap;//Bitmap.createBitmap(28,28, Bitmap.Config.RGB_565);
-            Log.v("Step","0");
-            Long ts = (System.currentTimeMillis()/1000);
-            // bitmap.compress(Bitmap.CompressFormat.JPEG, 100, new FileOutputStream(new File(Environment.getExternalStorageDirectory()+"/PaintApp/"+ts.toString()+".png")));
-            return bitmap;
+            return mBitmap;
     }
 }

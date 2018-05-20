@@ -66,6 +66,13 @@ public class MainActivity extends AppCompatActivity {
 
     private int run_count = 0;
 
+    private final int REQUEST_EXTERNAL_STORAGE = 1;
+    private String[] PERMISSIONS_STORAGE = {
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.INTERNET
+    };
+
     HttpPostAsyncTask task;
 
 
@@ -105,12 +112,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private final int REQUEST_EXTERNAL_STORAGE = 1;
-    private String[] PERMISSIONS_STORAGE = {
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.INTERNET
-    };
+
 
     public void verifyStoragePermissions(Activity activity) throws IOException,JSONException {
         // Check if we have write permission
@@ -179,13 +181,6 @@ public class MainActivity extends AppCompatActivity {
             task = new HttpPostAsyncTask(client,post);
             task.execute();
 
-
-//            HttpResponse response = client.execute(post);
-//            Log.v("Step","3");
-//            HttpEntity httpEntity = response.getEntity();
-//            String result = EntityUtils.toString(httpEntity);
-//            JSONObject json_result = new JSONObject(result);
-//            Toast.makeText(getApplicationContext(),"It's a "+json_result.getString("prediction"),Toast.LENGTH_LONG).show();
         }
     }
 
