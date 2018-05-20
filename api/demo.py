@@ -24,6 +24,7 @@ def apicall():
 	# has successfully sent an image file (of the sketch of the digit)
 	if 'test_image' in request.files:
 		# Get that image file and store it in file variable
+
 		file = request.files['test_image']
 
 		# Also save the filename
