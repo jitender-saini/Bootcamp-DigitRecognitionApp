@@ -59,13 +59,12 @@ import java.util.Scanner;
 
 public class MainActivity extends AppCompatActivity {
 
+    // PaintView Variable
     private PaintView paintView;
+
+    // Permission related variables
     private final int REQUEST_PERMISSION_INTERNET=1;
-
     private final int REQUEST_PERMISSION_WRITE=1;
-
-    private int run_count = 0;
-
     private final int REQUEST_EXTERNAL_STORAGE = 1;
     private String[] PERMISSIONS_STORAGE = {
             Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -73,9 +72,14 @@ public class MainActivity extends AppCompatActivity {
             Manifest.permission.INTERNET
     };
 
+    // Http Asynchronous Task
     HttpPostAsyncTask task;
 
+    // Change this accordingly
+    String API_URL = "http://ec2-34-217-190-195.us-west-2.compute.amazonaws.com/model/predict";
 
+
+    // This function runs when the activity is created.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,36 +88,12 @@ public class MainActivity extends AppCompatActivity {
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
         paintView.init(metrics);
-    }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu){
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.main, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        switch (item.getItemId()) {
-            case R.id.normal:
-                paintView.normal();
-                return true;
-            case R.id.emboss:
-                paintView.emboss();
-                return true;
-            case R.id.blur:
-                paintView.blur();
-                return true;
-            case R.id.clear:
-                paintView.clear();
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
 
-
+    // This function checks for all the permissions and triggers the request to the api only if all the permissions are granted
     public void verifyStoragePermissions(Activity activity) throws IOException,JSONException {
         // Check if we have write permission
         int permission_1 = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
@@ -134,6 +114,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    // This function saves the canvas digit image to the phone and then transfers that file to the api server (our ec2 instance)
+    // and retrieves the response back. It uses HttpPostAsyncTask to achieve this as it is required to do any IO operation on a
+    // seperate thread rather than on the main UI thread.
     public void send_request(Bitmap mBitmap) throws IOException,JSONException{
         int SDK_INT = android.os.Build.VERSION.SDK_INT;
         if (SDK_INT > 8)
@@ -142,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
             StrictMode.setThreadPolicy(policy);
 
             HttpClient client = new DefaultHttpClient();
-            HttpPost post = new HttpPost("http://ec2-34-217-190-195.us-west-2.compute.amazonaws.com/model/predict");
+            HttpPost post = new HttpPost(API_URL);
 
             MultipartEntityBuilder entityBuilder = MultipartEntityBuilder.create();
 
@@ -178,18 +161,18 @@ public class MainActivity extends AppCompatActivity {
 
             Log.v("Step","2");
 
-            task = new HttpPostAsyncTask(client,post);
+            task = new HttpPostAsyncTask(client,post,this);
             task.execute();
 
         }
     }
 
-    public void cancel_request(View view){
-        task.cancel(true);
-    }
-
     public void recognize(View view) throws FileNotFoundException, MalformedURLException, IOException,JSONException {
         verifyStoragePermissions(this);
+    }
+
+    public void clear(View view){
+        paintView.clear();
     }
 
 }
