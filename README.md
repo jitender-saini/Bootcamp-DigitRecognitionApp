@@ -7,7 +7,7 @@ To run this code follow the below given instructions:
 
 <h3>To train the model:</h3>
 
-1) In terminal, navigate to the model directory and execute "python model.py". This will train the model as well as test it on sample test data.
+1) In terminal, navigate to the api and then model directory and execute "python model.py". This will train the model as well as test it on sample test data.
 
 <h3>To predict with this model:</h3>
 <ol>
